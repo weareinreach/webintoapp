@@ -1,0 +1,33 @@
+Keystore type: jks
+Keystore provider: SUN
+
+Your keystore contains 1 entry
+
+Alias name: inreach
+Creation date: Oct 3, 2023
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Joe Karow, OU=InReach, O=InReach, L=InReach, ST=New York, C=United States
+Issuer: CN=Joe Karow, OU=InReach, O=InReach, L=InReach, ST=New York, C=United States
+Serial number: 710c80e3
+Valid from: Tue Oct 03 20:11:08 UTC 2023 until: Sat Feb 18 20:11:08 UTC 2051
+Certificate fingerprints:
+	 SHA1: FF:E8:5C:21:B7:6A:10:AB:56:A7:81:3E:38:23:CB:5A:78:0C:79:43
+	 SHA256: C1:C0:4D:8F:60:0A:1D:42:CC:89:7A:83:13:3B:89:B7:56:80:5D:1E:6D:AE:3E:6A:CD:86:5F:70:EB:A6:7F:01
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: EC A7 29 E7 DD EB 5D 6E   5A C6 82 A9 6A BD 33 E9  ..)...]nZ...j.3.
+0010: C0 D4 07 FD                                        ....
+]
+]
+
+
+

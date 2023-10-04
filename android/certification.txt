@@ -1,0 +1,24 @@
+---------------------------------------------------
+Here are the ownership and the certification details
+of the InReach 4.0
+---------------------------------------------------
+
+app_name - 						InReach
+app_alias - 					InReach
+app_author_name - 				Joe Karow
+app_author_organizational - 	InReach
+app_author_organization - 		InReach
+app_author_locality - 			InReach
+app_author_state - 				New York
+app_author_country - 			United States
+app_password - 					1FPTNbXGRT0i
+app_versionName - 				versionName "4.0"
+app_versionCode - 				400
+
+---------------------------------------------------
+The certification was created by WebIntoApp.com at
+the Tuesday 3rd of October 2023 11:21:35 PM
+
+https://www.webintoapp.com
+---------------------------------------------------
+

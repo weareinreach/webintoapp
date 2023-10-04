@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"name": "Android",
+			"path": "./android/sourcecode"
+		},
+		{
+			"name": "iOS",
+			"path": "./ios/sourcecode"
+		},
+		{
+			"path": ".",
+			"name": "root"
+		}
+	],
+	"settings": {
+		"lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+		"lldb.launch.expressions": "native"
+	}
+}

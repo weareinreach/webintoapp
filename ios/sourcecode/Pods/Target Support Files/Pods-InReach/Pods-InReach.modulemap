@@ -1,0 +1,6 @@
+framework module Pods_InReach {
+  umbrella header "Pods-InReach-umbrella.h"
+
+  export *
+  module * { export * }
+}

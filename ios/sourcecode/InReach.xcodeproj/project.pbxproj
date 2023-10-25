@@ -15,6 +15,7 @@
 		8BEA477522B72C590034118D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BEA477422B72C590034118D /* Assets.xcassets */; };
 		8BEA477822B72C590034118D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BEA477622B72C590034118D /* LaunchScreen.storyboard */; };
 		D8DC3D932ACCE2F300F0EDE3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC3D922ACCE2F300F0EDE3 /* WebViewController.swift */; };
+		D8E7EC5B2AE1DB4F000D95A7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E7EC5A2AE1DB4F000D95A7 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		910C8A768576085B448D3837 /* Pods-InReach.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InReach.release.xcconfig"; path = "Target Support Files/Pods-InReach/Pods-InReach.release.xcconfig"; sourceTree = "<group>"; };
 		CDC90F52AECDB6DCA7CFF0CD /* Pods_InReach.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InReach.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8DC3D922ACCE2F300F0EDE3 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		D8E7EC5A2AE1DB4F000D95A7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E7EC5B2AE1DB4F000D95A7 /* WebKit.framework in Frameworks */,
 				42DAC4FFDC65A5D7C10E7978 /* Pods_InReach.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +92,7 @@
 		B8B3DC6339305F1D3F34434E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8E7EC5A2AE1DB4F000D95A7 /* WebKit.framework */,
 				CDC90F52AECDB6DCA7CFF0CD /* Pods_InReach.framework */,
 			);
 			name = Frameworks;
@@ -346,6 +350,7 @@
 			baseConfigurationReference = 5CABAA52682B9881126934C1 /* Pods-InReach.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_TEAM = B68QNYB4VA;
@@ -372,6 +377,7 @@
 			baseConfigurationReference = 910C8A768576085B448D3837 /* Pods-InReach.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_TEAM = B68QNYB4VA;

@@ -15,6 +15,8 @@
 	],
 	"settings": {
 		"lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-		"lldb.launch.expressions": "native"
+		"lldb.launch.expressions": "native",
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.project.explorer.showNonJavaResources": false
 	}
 }

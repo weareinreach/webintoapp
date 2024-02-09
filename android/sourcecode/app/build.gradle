@@ -34,9 +34,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }        
+        sourceCompatibility 17
+        targetCompatibility 17
+    }
     signingConfigs {
         create("release") {
             storeFile = file("my-release-key.jks")
@@ -54,6 +54,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'org.asylumconnect.app'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

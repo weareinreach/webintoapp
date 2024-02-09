@@ -22,21 +22,22 @@
 //  Created by InReach on 03/10/2023.
 //
 package org.asylumconnect.app;
+
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-//import android.database.Cursor;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-//import android.graphics.Point;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.net.ConnectivityManager;
-//import android.net.NetworkInfo;
+import android.net.NetworkInfo;
 import android.content.Context;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.view.WindowManager;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
@@ -57,8 +58,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-//import android.text.InputType;
-//import android.widget.EditText;
+import android.text.InputType;
+import android.widget.EditText;
 import android.webkit.ValueCallback;
 import android.provider.MediaStore;
 import java.io.IOException;
@@ -71,27 +72,28 @@ import android.content.DialogInterface;
 import android.webkit.CookieManager;
 import android.content.SharedPreferences;
 import android.widget.FrameLayout;
-//import android.widget.Toast;
-//import com.android.volley.AuthFailureError;
-//import com.android.volley.toolbox.Volley;
-//import com.android.volley.RequestQueue;
-//import com.android.volley.Request;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.StringRequest;
-//import java.io.DataOutputStream;
+import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.RequestQueue;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import java.io.DataOutputStream;
 import java.io.File;
-//import java.io.FileOutputStream;
-//import java.text.DateFormat;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-//import java.util.HashMap;
-//import java.util.Locale;
-//import java.util.Map;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import android.view.KeyEvent;
-//import org.jetbrains.annotations.NotNull;
-//import android.widget.FrameLayout;
+import org.jetbrains.annotations.NotNull;
+import android.widget.FrameLayout;
 import android.graphics.BitmapFactory;
+
 public class MainActivity extends AppCompatActivity {
     private WebView mWebView;
     private WebView splash_mWebView;
@@ -116,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
     PermissionRequest permissionRequest;
     static boolean homeLoaded = false;
     static String currentUrl = "";
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint({"SetJavaScriptEnabled", "CutPasteId"})
+    @SuppressLint({ "SetJavaScriptEnabled", "CutPasteId" })
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,29 +141,31 @@ public class MainActivity extends AppCompatActivity {
             protected FrameLayout mFullscreenContainer;
             private int mOriginalOrientation;
             private int mOriginalSystemUiVisibility;
-            public void MyWebClient() {}
-            public Bitmap getDefaultVideoPoster()
-            {
+
+            public void MyWebClient() {
+            }
+
+            public Bitmap getDefaultVideoPoster() {
                 if (MainActivity.this == null) {
                     return null;
                 }
-                return BitmapFactory.decodeResource(MainActivity.this.getApplicationContext().getResources(), 2130837573);
+                return BitmapFactory.decodeResource(MainActivity.this.getApplicationContext().getResources(),
+                        2130837573);
             }
+
             @Override
-            public void onHideCustomView()
-            {
-                ((FrameLayout)MainActivity.this.getWindow().getDecorView()).removeView(this.mCustomView);
+            public void onHideCustomView() {
+                ((FrameLayout) MainActivity.this.getWindow().getDecorView()).removeView(this.mCustomView);
                 this.mCustomView = null;
                 MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
                 MainActivity.this.setRequestedOrientation(this.mOriginalOrientation);
                 this.mCustomViewCallback.onCustomViewHidden();
                 this.mCustomViewCallback = null;
             }
+
             @Override
-            public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback)
-            {
-                if (this.mCustomView != null)
-                {
+            public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback) {
+                if (this.mCustomView != null) {
                     onHideCustomView();
                     return;
                 }
@@ -168,45 +173,52 @@ public class MainActivity extends AppCompatActivity {
                 this.mOriginalSystemUiVisibility = MainActivity.this.getWindow().getDecorView().getSystemUiVisibility();
                 this.mOriginalOrientation = MainActivity.this.getRequestedOrientation();
                 this.mCustomViewCallback = paramCustomViewCallback;
-                ((FrameLayout)MainActivity.this.getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
+                ((FrameLayout) MainActivity.this.getWindow().getDecorView()).addView(this.mCustomView,
+                        new FrameLayout.LayoutParams(-1, -1));
                 MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(3846);
             }
+
             @Override
             public void onCloseWindow(WebView window) {
             }
+
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_LOC);
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, PERMISSION_LOC);
                     mGeoLocationRequestOrigin = origin;
                     mGeoLocationCallback = callback;
-                }
-                else{
+                } else {
                     callback.invoke(origin, true, true);
                 }
             }
+
             @Override
             public void onPermissionRequest(PermissionRequest request) {
                 permissionRequest = request;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    for(String permission: request.getResources()){
-                        if(permission.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)){
-                            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_VIDEO_CAPTURE2);
+                    for (String permission : request.getResources()) {
+                        if (permission.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
+                            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[] { Manifest.permission.RECORD_AUDIO }, PERMISSION_VIDEO_CAPTURE2);
                                 return;
-                            }
-                            else{
+                            } else {
                                 getVideoCapturePermission();
                             }
                         }
                     }
                 }
             }
+
             @Override
             public boolean onShowFileChooser(
-                WebView webView, ValueCallback<Uri[]> filePathCallback,
-                WebChromeClient.FileChooserParams fileChooserParams) {
-                if(mFilePathCallback != null) {
+                    WebView webView, ValueCallback<Uri[]> filePathCallback,
+                    WebChromeClient.FileChooserParams fileChooserParams) {
+                if (mFilePathCallback != null) {
                     mFilePathCallback.onReceiveValue(null);
                 }
                 mFilePathCallback = filePathCallback;
@@ -222,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     if (photoFile != null) {
                         mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                            Uri.fromFile(photoFile));
+                                Uri.fromFile(photoFile));
                     } else {
                         takePictureIntent = null;
                     }
@@ -231,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
                 contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
                 contentSelectionIntent.setType("*/*");
                 Intent[] intentArray;
-                if(takePictureIntent != null) {
-                    intentArray = new Intent[]{takePictureIntent};
+                if (takePictureIntent != null) {
+                    intentArray = new Intent[] { takePictureIntent };
                 } else {
                     intentArray = new Intent[0];
                 }
@@ -243,36 +255,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(chooserIntent, INPUT_FILE_REQUEST_CODE);
                 return true;
             }
+
             @Override
-            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg)
-            {
+            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture,
+                    android.os.Message resultMsg) {
                 // External Link
                 newWebView = new WebView(view.getContext());
-                newWebView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                newWebView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
                 container.addView(newWebView);
                 WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
                 transport.setWebView(newWebView);
                 resultMsg.sendToTarget();
                 newWebView.setWebChromeClient(new WebChromeClient() {
                     @Override
-                    public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
+                    public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture,
+                            android.os.Message resultMsg) {
                         return true;
                     }
                 });
                 newWebView.setWebViewClient(new WebViewClient() {
                     @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url)
-                    {
-                        if (url.startsWith("mailto:"))
-                        {
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                        if (url.startsWith("mailto:")) {
                             startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse(url)));
-                        }
-                        else if (url.startsWith("tel:"))
-                        {
+                        } else if (url.startsWith("tel:")) {
                             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
-                        }
-                        else if(url.startsWith("intent:"))
-                        {
+                        } else if (url.startsWith("intent:")) {
                             Uri parsedUri = Uri.parse(url);
                             PackageManager packageManager = MainActivity.this.getPackageManager();
                             Intent browseIntent = new Intent(Intent.ACTION_VIEW).setData(parsedUri);
@@ -287,39 +297,40 @@ public class MainActivity extends AppCompatActivity {
                                     return true;
                                 }
                                 Intent marketIntent = new Intent(Intent.ACTION_VIEW).setData(
-                                    Uri.parse("market://details?id=" + intent.getPackage()));
+                                        Uri.parse("market://details?id=" + intent.getPackage()));
                                 if (marketIntent.resolveActivity(packageManager) != null) {
                                     MainActivity.this.startActivity(marketIntent);
                                     return true;
-                                }
-                                else
+                                } else
                                     IntentFallvack(view, intent);
-                            } catch (URISyntaxException e) {
+                            } catch (Exception e) {
                             }
                         }
                         SetWebView(newWebView);
                         newWebView.getSettings().setJavaScriptEnabled(true);
                         newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-                        /*
-                        newWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
-                        newWebView.getSettings().setAllowFileAccess(true);
-                        newWebView.getSettings().setAllowFileAccessFromFileURLs(true);
-                        newWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
-                        newWebView.getSettings().setUseWideViewPort(true);
-                        newWebView.getSettings().setSupportZoom(true);
-                        newWebView.getSettings().setLoadWithOverviewMode(true);
-                        newWebView.getSettings().setDomStorageEnabled(true);
                         newWebView.getSettings().setSupportMultipleWindows(true);
-                        newWebView.getSettings().setLoadWithOverviewMode(true);
-                        newWebView.getSettings().setUseWideViewPort(true);
-                        newWebView.getSettings().setBuiltInZoomControls(false);
-                        newWebView.getSettings().setUserAgentString(System.getProperty("http.agent"));
-                        newWebView.getSettings().setTextZoom(100);
-                        if (Build.VERSION.SDK_INT > 17)
-                        {
-                            newWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-                        }
-                        */
+                        newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                        newWebView.getSettings().setDomStorageEnabled(true);
+                        /*
+                         * newWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
+                         * newWebView.getSettings().setAllowFileAccess(true);
+                         * newWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+                         * newWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+                         * newWebView.getSettings().setUseWideViewPort(true);
+                         * newWebView.getSettings().setSupportZoom(true);
+                         * newWebView.getSettings().setLoadWithOverviewMode(true);
+                         * newWebView.getSettings().setLoadWithOverviewMode(true);
+                         * newWebView.getSettings().setUseWideViewPort(true);
+                         * newWebView.getSettings().setBuiltInZoomControls(false);
+                         * newWebView.getSettings().setUserAgentString(System.getProperty("http.agent"))
+                         * ;
+                         * newWebView.getSettings().setTextZoom(100);
+                         * if (Build.VERSION.SDK_INT > 17)
+                         * {
+                         * newWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+                         * }
+                         */
                         newWebView.loadUrl(url);
                         return true;
                     }
@@ -333,15 +344,17 @@ public class MainActivity extends AppCompatActivity {
         settings.setDomStorageEnabled(true);
         mWebView.setDownloadListener(new DownloadListener() {
             @Override
-            public void onDownloadStart(final String url, final String userAgent, String contentDisposition, String mimetype, long contentLength) {
+            public void onDownloadStart(final String url, final String userAgent, String contentDisposition,
+                    String mimetype, long contentLength) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED) {
+                    if (checkSelfPermission(
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         Log.v(TAG, "Permission is granted");
                         downloadDialog(url, userAgent, contentDisposition, mimetype);
                     } else {
                         Log.v(TAG, "Permission is revoked");
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, 1);
                     }
                 } else {
                     Log.v(TAG, "Permission is granted");
@@ -350,34 +363,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mWebView.setWebViewClient(new WebViewClient() {
-            void IntentFallvack(WebView webView, Intent intent)
-            {
+            void IntentFallvack(WebView webView, Intent intent) {
                 String fallbackUrl = intent.getStringExtra("browser_fallback_url");
                 if (fallbackUrl != null) {
                     webView.loadUrl(fallbackUrl);
                 }
             }
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 currentUrl = url;
-                if(homeLoaded) {
+                if (homeLoaded) {
                     showProgress();
                 }
                 if (!checkInternetConnection(MainActivity.this)) {
                     hideProgress();
-                }
-                else {
+                } else {
                 }
             }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("https") || url.startsWith("http")) return false;//open web links as usual
+                if ((url.startsWith("https") || url.startsWith("http")) && !url
+                        .matches("^https?:\\/\\/app\\.inreach\\.org.*"))
+                    return false;// open web links as usual
                 if (url.startsWith("mailto:")) {
                     startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse(url)));
                 } else if (url.startsWith("tel:")) {
                     startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
-                } else if(url.startsWith("intent:")) {
+                } else if (url.startsWith("intent:")) {
                     Uri parsedUri = Uri.parse(url);
                     PackageManager packageManager = MainActivity.this.getPackageManager();
                     Intent browseIntent = new Intent(Intent.ACTION_VIEW).setData(parsedUri);
@@ -392,18 +407,18 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
                         Intent marketIntent = new Intent(Intent.ACTION_VIEW).setData(
-                            Uri.parse("market://details?id=" + intent.getPackage()));
+                                Uri.parse("market://details?id=" + intent.getPackage()));
                         if (marketIntent.resolveActivity(packageManager) != null) {
                             MainActivity.this.startActivity(marketIntent);
                             return true;
-                        }
-                        else
+                        } else
                             IntentFallvack(view, intent);
                     } catch (URISyntaxException e) {
                     }
                 }
                 return true;
             }
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(mWebView, url);
@@ -412,17 +427,19 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.activity_splash_webview).setVisibility(View.GONE);
                 findViewById(R.id.activity_main_webview).setVisibility(View.VISIBLE);
                 display_error = true;
-                if(!homeLoaded){
+                if (!homeLoaded) {
                     homeLoaded = true;
                 }
             }
+
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             }
+
             @Override
-            public void onLoadResource(WebView  view, String  url){
+            public void onLoadResource(WebView view, String url) {
                 if (!checkInternetConnection(MainActivity.this)) {
-                    if(!no_internet) {
+                    if (!no_internet) {
                     }
                     no_internet = true;
                 }
@@ -436,16 +453,14 @@ public class MainActivity extends AppCompatActivity {
         }
         Intent intent = getIntent();
         Uri data = intent.getData();
-        if(data != null) {
+        if (data != null) {
             String url = intent.getDataString();
             assert url != null;
-            if(url.startsWith("https://app.inreach.org")) //Check the url inorder to avoid cross-app scripting
+            if (url.startsWith("https://app.inreach.org")) // Check the url inorder to avoid cross-app scripting
                 mWebView.loadUrl(url);
             else
                 mWebView.loadUrl("https://app.inreach.org");
-        }
-        else
-        {
+        } else {
             mWebView.loadUrl("https://app.inreach.org");
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -455,44 +470,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void getVideoCapturePermission() {
         permissionRequest.grant(permissionRequest.getResources());
     }
-    public static boolean checkAudioPermission(Activity activity){
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+
+    public static boolean checkAudioPermission(Activity activity) {
+        return ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
+
     public static void getAudioPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.RECORD_AUDIO}, MainActivity.PERMISSION_AUDIO);
+        ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.RECORD_AUDIO },
+                MainActivity.PERMISSION_AUDIO);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == PERMISSION_LOC) {
                 if (mGeoLocationCallback != null)
                     mGeoLocationCallback.invoke(mGeoLocationRequestOrigin, true, true);
-            }
-            else if(requestCode == PERMISSION_VIDEO_CAPTURE1){
-                if(!checkAudioPermission(MainActivity.this)){
+            } else if (requestCode == PERMISSION_VIDEO_CAPTURE1) {
+                if (!checkAudioPermission(MainActivity.this)) {
                     getAudioPermission(MainActivity.this);
-                }
-                else{
+                } else {
                     getVideoCapturePermission();
                 }
-            }
-            else if(requestCode == PERMISSION_VIDEO_CAPTURE2){
+            } else if (requestCode == PERMISSION_VIDEO_CAPTURE2) {
                 getVideoCapturePermission();
             }
             mWebView.reload();
         }
     }
-    public void downloadDialog(final String url, final String userAgent, final String contentDisposition, final String mimetype) {
-        if(url.startsWith("blob")) {
+
+    public void downloadDialog(final String url, final String userAgent, final String contentDisposition,
+            final String mimetype) {
+        if (url.startsWith("blob")) {
             mWebView.loadUrl(JavaScriptInterface.getBase64StringFromBlobUrl(url, mimetype));
-        }
-        else {
+        } else {
             final String filename = URLUtil.guessFileName(url, contentDisposition, mimetype);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Download");
@@ -500,15 +520,15 @@ public class MainActivity extends AppCompatActivity {
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                        String cookie = CookieManager.getInstance().getCookie(url);
-                        request.addRequestHeader("Cookie", cookie);
-                        request.addRequestHeader("User-Agent", userAgent);
-                        request.allowScanningByMediaScanner();
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-                        downloadManager.enqueue(request);
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                    String cookie = CookieManager.getInstance().getCookie(url);
+                    request.addRequestHeader("Cookie", cookie);
+                    request.addRequestHeader("User-Agent", userAgent);
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+                    downloadManager.enqueue(request);
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -520,14 +540,17 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
         }
     }
-    public void showProgress(){
-        if(true)
+
+    public void showProgress() {
+        if (true)
             NavigateProgressBar.setRefreshing(true);
     }
-    public void hideProgress(){
+
+    public void hideProgress() {
         NavigateProgressBar.setRefreshing(false);
     }
-    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
+
+    @SuppressLint({ "SetJavaScriptEnabled", "AddJavascriptInterface" })
     private void SetWebView(WebView wv) {
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -548,6 +571,7 @@ public class MainActivity extends AppCompatActivity {
         wv.addJavascriptInterface(new JavaScriptInterface(MainActivity.this), "Android");
         wv.getSettings().setPluginState(WebSettings.PluginState.ON);
     }
+
     // External Link
     private void closeWebviewPopup() {
         if (newWebView != null) {
@@ -556,10 +580,12 @@ public class MainActivity extends AppCompatActivity {
             newWebView = null;
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -567,13 +593,14 @@ public class MainActivity extends AppCompatActivity {
             prefs.edit().putBoolean("firstrun", false).apply();
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 // External Link
-                if(newWebView != null) {
-                    if(newWebView.canGoBack()){
+                if (newWebView != null) {
+                    if (newWebView.canGoBack()) {
                         newWebView.goBack();
                         return true;
                     }
@@ -593,32 +620,34 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    void IntentFallvack(WebView webView, Intent intent)
-    {
+
+    void IntentFallvack(WebView webView, Intent intent) {
         String fallbackUrl = intent.getStringExtra("browser_fallback_url");
         if (fallbackUrl != null) {
             webView.loadUrl(fallbackUrl);
         }
     }
+
     public static boolean checkInternetConnection(Context context) {
-        ConnectivityManager con_manager = (ConnectivityManager)
-            context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager con_manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return (con_manager.getActiveNetworkInfo() != null
-            && con_manager.getActiveNetworkInfo().isAvailable()
-            && con_manager.getActiveNetworkInfo().isConnected());
+                && con_manager.getActiveNetworkInfo().isAvailable()
+                && con_manager.getActiveNetworkInfo().isConnected());
     }
+
     private File createImageFile() throws IOException {
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat")
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES);
+                Environment.DIRECTORY_PICTURES);
         return File.createTempFile(
-            imageFileName,
-            ".jpg",
-            storageDir
-        );
+                imageFileName,
+                ".jpg",
+                storageDir);
     }
-    public static void openUrlInChrome(Activity activity, String url){
+
+    public static void openUrlInChrome(Activity activity, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setPackage("com.android.chrome");
@@ -629,22 +658,23 @@ public class MainActivity extends AppCompatActivity {
             activity.startActivity(intent);
         }
     }
+
     @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
         Uri[] results = null;
-        if(resultCode == Activity.RESULT_OK) {
-            if(data == null) {
-                if(mCameraPhotoPath != null) {
-                    results = new Uri[]{Uri.parse(mCameraPhotoPath)};
+        if (resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                if (mCameraPhotoPath != null) {
+                    results = new Uri[] { Uri.parse(mCameraPhotoPath) };
                 }
             } else {
                 String dataString = data.getDataString();
                 if (dataString != null) {
-                    results = new Uri[]{Uri.parse(dataString)};
+                    results = new Uri[] { Uri.parse(dataString) };
                 }
             }
         }

@@ -1,67 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/buttonBar"
         android:layout_width="match_parent"
-        android:layout_height="50.dp"
-        android:background="@color/allyGreen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/imageLoading1">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/allyGreen">
 
         <ImageButton
             android:id="@+id/closeButton"
-            android:layout_width="40.dp"
-            android:layout_height="40.dp"
+            android:layout_width="48.dp"
+            android:layout_height="48.dp"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="10.dp"
-            android:contentDescription="@string/close"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/allyGreen"
+            android:contentDescription="@string/close"
             android:src="@drawable/ic_close" />
 
         <ImageButton
             android:id="@+id/openInBrowser"
-            android:layout_width="40.dp"
-            android:layout_height="40.dp"
+            android:layout_width="48.dp"
+            android:layout_height="48.dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="10.dp"
-            android:src="@drawable/ic_open_in_browser"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/allyGreen"
-            android:contentDescription="@string/openInBrowser" />
+            android:contentDescription="@string/openInBrowser"
+            android:src="@drawable/ic_open_in_browser" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/progressBarInner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageLoading1"
-        android:layout_width="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonBar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Loading..." />
+        android:layout_alignParentTop="false"
+        android:layout_centerInParent="true"
+        android:indeterminateOnly="true"
+        android:max="3"
+        android:progress="100"
+        android:visibility="visible" />
 
     <WebView
         android:id="@+id/externalWebView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonBar"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBar" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttonBar"
+        android:layout_centerHorizontal="true" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

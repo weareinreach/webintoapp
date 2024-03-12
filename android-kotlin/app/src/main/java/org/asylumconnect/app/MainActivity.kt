@@ -140,17 +140,10 @@ class MainActivity : AppCompatActivity() {
       return false
     }
 
-    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-      super.onPageStarted(view, url, favicon)
-      view?.visibility = View.INVISIBLE
-    }
-
-    // ProgressBar will disappear once page is loaded
-    override fun onPageFinished(view: WebView, url: String) {
-
-      super.onPageFinished(view, url)
-      view.visibility = View.VISIBLE
-
+    override fun onPageCommitVisible(view: WebView?, url: String?) {
+      super.onPageCommitVisible(view, url)
+      view?.visibility = View.VISIBLE
+      progressBar.visibility = View.INVISIBLE
     }
 
   }

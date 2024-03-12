@@ -1,0 +1,15 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "addLabels": [
+        "dependencies",
+        "automerge",
+        "kodiak: merge.method = 'squash'"
+    ],
+    "baseBranches": [
+        "main"
+    ],
+    "extends": [
+        "github>weareinreach/renovate-config"
+    ],
+    "semanticCommitScope": "{{parentDir}}"
+}

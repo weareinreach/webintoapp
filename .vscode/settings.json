@@ -1,4 +1,5 @@
 {
   "lldb.library": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/LLDB",
-  "lldb.launch.expressions": "native"
+  "lldb.launch.expressions": "native",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

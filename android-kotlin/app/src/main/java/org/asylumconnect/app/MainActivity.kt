@@ -3,7 +3,6 @@ package org.asylumconnect.app
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,11 +38,8 @@ class MainActivity : AppCompatActivity() {
     progressBar = findViewById(R.id.progressBar)
     webView = findViewById(R.id.webView)
     webView.webViewClient = MainWebviewClient(this)
-
     setWebView(webView)
-
     webView.loadUrl(mainUrl.toString())
-
   }
 
   inner class MainWebviewClient(val activity: MainActivity) : WebViewClient() {
@@ -72,13 +68,8 @@ class MainActivity : AppCompatActivity() {
           val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
           val screenHeight = activity.resources.displayMetrics.heightPixels
           bottomSheetBehavior.isFitToContents = false
-          bottomSheetBehavior.expandedOffset = (screenHeight * 0.05).toInt(
-          )
+          bottomSheetBehavior.expandedOffset = (screenHeight * 0.05).toInt()
           bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//                            view?.findViewById<WebView>(R.id.externalWebView)?.visibility =
-//                                View.INVISIBLE
-//                            view?.findViewById<TextView>(R.id.imageLoading1)?.visibility =
-//                                View.VISIBLE
         }
       }
     }
@@ -90,13 +81,9 @@ class MainActivity : AppCompatActivity() {
     ): Boolean {
       val url = request.url.toString()
       if (!url.startsWith("app.inreach.org")) {
-
         val bottomSheetDialog = WebDrawer(activity)
         val bottomSheetView =
-//                    bottomSheetDialog.setContentView(R.layout.bottom_sheet_webview)
-          LayoutInflater.from(activity)
-            .inflate(R.layout.bottom_sheet_webview, null)
-
+          LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_webview, null)
         val externalWebView = bottomSheetView.findViewById<WebView>(R.id.externalWebView)
         externalWebView?.webViewClient = ExternalWebViewClient()
         setWebView(externalWebView)
@@ -104,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         externalWebView?.loadUrl(url)
         val closeButton =
           bottomSheetView.findViewById<ImageButton>(R.id.closeButton) // Find close button
-
         closeButton.setOnClickListener {
           bottomSheetDialog.dismiss()
         }
@@ -114,9 +100,6 @@ class MainActivity : AppCompatActivity() {
           val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
           startActivity(it.context, browserIntent, null)
         }
-//                val screenHeight = activity.resources.displayMetrics.heightPixels
-
-//                bottomSheetDialog.behavior.peekHeight = (screenHeight * 0.95).toInt()
         bottomSheetDialog.setContentView(bottomSheetView)
         bottomSheetDialog.show()
       } else {
@@ -127,14 +110,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPageFinished(view: WebView, url: String) {
       super.onPageFinished(view, url)
-
       progressBar.visibility = View.GONE
-
     }
   }
 
   inner class ExternalWebViewClient : WebViewClient() {
-
     override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
       view.loadUrl(request.url.toString())
       return false
@@ -145,9 +125,7 @@ class MainActivity : AppCompatActivity() {
       view?.visibility = View.VISIBLE
       progressBar.visibility = View.INVISIBLE
     }
-
   }
-
 
   @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
   fun setWebView(wv: WebView) {
@@ -156,18 +134,12 @@ class MainActivity : AppCompatActivity() {
     webSettings.domStorageEnabled = true
     webSettings.setSupportMultipleWindows(false)
     webSettings.javaScriptCanOpenWindowsAutomatically = true
-    //        webSettings.setAllowFileAccess(true);
     webSettings.builtInZoomControls = false
     webSettings.displayZoomControls = false
     webSettings.loadWithOverviewMode = true
     webSettings.useWideViewPort = true
-    //        webSettings.setAllowFileAccessFromFileURLs(true);
-//        webSettings.setAllowUniversalAccessFromFileURLs(true);
     webSettings.setSupportZoom(true)
-    //        webSettings.setDatabaseEnabled(true);
     webSettings.userAgentString = System.getProperty("http.agent")
     webSettings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-    //wv.addJavascriptInterface(new JavaScriptInterface(MainActivity.this), "Android");
-    //wv.getSettings().setPluginState(WebSettings.PluginState.ON);
   }
 }

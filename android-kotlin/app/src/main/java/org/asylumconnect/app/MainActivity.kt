@@ -80,7 +80,8 @@ class MainActivity : AppCompatActivity() {
       request: WebResourceRequest
     ): Boolean {
       val url = request.url.toString()
-      if (!url.startsWith("app.inreach.org")) {
+      val host = request.url.host.toString()
+      if (!host.startsWith("app.inreach.org")) {
         val bottomSheetDialog = WebDrawer(activity)
         val bottomSheetView =
           LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_webview, null)

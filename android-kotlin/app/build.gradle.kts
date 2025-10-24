@@ -5,14 +5,14 @@ plugins {
 
 android {
   namespace = "org.asylumconnect.app"
-  compileSdk = 34
+  compileSdk = 36
 
   defaultConfig {
     applicationId = "org.asylumconnect.app"
     minSdk = 21
-    targetSdk = 34
-    versionCode = 6
-    versionName = "2.0"
+    targetSdk = 36
+    versionCode = 7
+    versionName = "2.1"
     vectorDrawables.useSupportLibrary = true
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
